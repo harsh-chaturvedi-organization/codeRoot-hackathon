@@ -1,0 +1,66 @@
+.UserHome {
+  width: 70%;
+  margin: auto;
+  /* border: 1px solid black; */
+  background-color: rgb(250, 251, 255);
+  padding-right: 50px;
+}
+.prodDetail {
+  background-color: white;
+  display: flex;
+  /* justify-content: space-around; */
+  margin: 10px 0px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #a5b7d1;
+  cursor: pointer;
+}
+
+.pName2 {
+  color: #21293c;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px;
+}
+.pPrice2 {
+  color: #21293c;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 10px;
+}
+.pQuantity2 {
+  color: #4b587c;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 10px;
+}
+.vendorName2 {
+  color: #21293c;
+  font-size: 19px;
+  font-weight: 600;
+  margin: 10px;
+}
+.productImage2 {
+  width: 30%;
+}
+.detailsDiv {
+  padding-left: 20px;
+}
+.but1 {
+  padding-top: 70px;
+  padding-left: 90px;
+  cursor: pointer;
+}
+.button1 {
+  cursor: pointer;
+  color: white;
+  background-color: rgb(2, 136, 209);
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+}
+.prodGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  gap: 5%;
+}
