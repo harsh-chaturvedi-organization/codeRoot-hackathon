@@ -1,6 +1,6 @@
 
 
-//create a router
+
 const { request } = require("express");
 const express = require("express");
 const router = express.Router();
