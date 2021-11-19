@@ -1,0 +1,28 @@
+.homePageMaindiv{
+    /* width: 90%; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-top: 200px; */
+    /* background-color: whitesmoke; */
+    background-image: url("https://i.pinimg.com/736x/5d/51/b6/5d51b62d44199fb3e5af25312d6dd10e.jpg");
+
+    background-size: 100vh;
+    background-size: 70vw;
+    height: 100vh;
+}
+
+.userAndVender{
+    width: 20%;
+    font-weight: bolder;
+    font-size: 26px;
+    border: 2px solid black;
+    text-align: center;
+    cursor: pointer;
+    background-color: wheat;
+    padding: 40px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+}
