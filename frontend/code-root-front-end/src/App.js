@@ -1,17 +1,18 @@
 // import './App.css';
 import HomePage from "./Components/HomePage";
-import Login from "./Components/Login";
+import {UserPage} from "./Components/Login";
 import {Route,Routes} from "react-router-dom"
 import VenderProfile from "./Components/VenderProfile";
 
 function App() {
   return (
     <div>
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/login" element={<Login/>} />
-      </Routes> */}
-      <VenderProfile/>
+        <Route path="/login" element={<UserPage/>} />
+      </Routes>
+      {/* <VenderProfile/> */}
+
     </div>
   );
 }
