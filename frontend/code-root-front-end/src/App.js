@@ -7,11 +7,11 @@ import VenderProfile from "./Components/VenderProfile";
 function App() {
   return (
     <div>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/login" element={<UserPage/>} />
-      </Routes>
-      {/* <VenderProfile/> */}
+      </Routes> */}
+      <VenderProfile/>
 
     </div>
   );
