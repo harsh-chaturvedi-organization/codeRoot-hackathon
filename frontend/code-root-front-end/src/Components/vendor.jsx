@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import "./vender.css"
 // map info--------------------
 import {
   GoogleMap,
@@ -63,10 +64,12 @@ export default function Vendor() {
   return (
     <div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 
-      <div>
+      <div >
         <p>choose shop location on map</p>
+        <div style={{width:"40%"}}>
         <GoogleMap
           id="map"
+          
           mapContainerStyle={mapContainerStyle}
           zoom={10}
           center={center}
@@ -78,14 +81,17 @@ export default function Vendor() {
             position={{ lat: marker.lat, lng: marker.lng }}
           />
         </GoogleMap>
+        </div>
       </div>
       <div>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <input onChange={e => setShop(e.target.value)} type="text" placeholder="shop name" />
-          <textarea onChange={e => setadd(e.target.value)} id="w3review" name="" rows="2" cols="20">
-            enter shop address
-          </textarea>
-          <input type="submit" />
+          <div className="shopDetails">
+            <input className="shopInput" onChange={e => setShop(e.target.value)} type="text" placeholder="shop name" />
+            <textarea className="shopInput" onChange={e => setadd(e.target.value)} id="w3review" name="" rows="2" cols="20">
+              enter shop address
+            </textarea>
+          </div>
+          <input className="shopSubmit" type="submit" />
         </form>
       </div>
     </div>

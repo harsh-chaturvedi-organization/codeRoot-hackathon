@@ -1,5 +1,8 @@
 import "./VenderProfile.css";
 import Vendor from "./vendor";
+import {Link} from "react-router-dom";
+import AddProdModal from "./AddProdModal";
+import { useState } from "react";
 
 const venderItems = [
     {
@@ -28,6 +31,9 @@ const removeItem=()=>{
     console.log("removeitem")
 }
 function VenderProfile({img,name}){
+    const [addProdut,setAddProduct] = useState(false);
+
+
 
     return(<div className="profile">
         <div className="heading">Your Posted Products</div>
@@ -47,10 +53,13 @@ function VenderProfile({img,name}){
             <div className="venderPhoto">
                 <img src={img} alt="avtar" />
                 <h3 className="vendorName">{name}</h3>
-                <button className="postprodBut">Post Another Product</button>
+                <button  className="postprodBut" onClick={()=>{
+                    setAddProduct(true)
+                }}>Post Another Product</button>
                 <Vendor/>
             </div>
         </div>
+        <AddProdModal addProdut={addProdut} setAddProduct={setAddProduct}/>
         </div>
     )
 }

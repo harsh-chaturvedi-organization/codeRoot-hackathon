@@ -1,5 +1,6 @@
 import "./UserHome.css";
 import { Nav } from "./Nav";
+import { Customer } from "./Customer";
 
 const venderItems = [
     {
@@ -50,8 +51,11 @@ const removeItem=()=>{
 function UserHome({img}){
 
     return(
-        <>
-        <Nav/>
+    <>
+    <Nav/>
+    <div style={{margin:"auto",width:'26.3%',alignItems:"center",textAlign:"center"}}>
+        <Customer/>
+    </div>
     <div className="UserHome">
         <div className="heading11">Available Products</div>
         <div className="prodGrid">
@@ -67,8 +71,8 @@ function UserHome({img}){
                 </div> )}
            
         </div>
-        </div>
-        </>
+    </div>
+    </>
     )
 }
 

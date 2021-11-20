@@ -8,6 +8,7 @@ import {Nav} from "./Components/Nav"
 import { Navbar } from "./Components/Navbar";
 import Vendor from "./Components/vendor";
 import { Customer } from "./Components/Customer";
+import AddProdModal from "./Components/AddProdModal";
 function App() { 
   return (
     <div>
@@ -15,11 +16,10 @@ function App() {
         <Route path="/" element={<HomePage/>} />
         <Route path="/loginVender" element={<UserPage/>} />
         <Route path="/loginUser" element={<UserHome/>} />
+        <Route path="/AddProdModal" element={<AddProdModal/>} />
      </Routes>
-      {/* <VenderProfile/> */}
-     {/* <Nav/>
-     <UserHome/> */}
-     {/* <Vendor/> */}
+     {/* <UserHome/> */}
+     {/* <Customer/> */}
     </div>
   );
 }

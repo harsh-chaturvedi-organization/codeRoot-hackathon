@@ -108,7 +108,7 @@ export const Customer = () => {
         </GoogleMap>
             </div>
             <div>
-                <button onClick={getVCendoras}>findVendors</button>
+                <button className="vanderSubmit" onClick={getVCendoras}>findVendors</button>
             </div>
             </div>
     )

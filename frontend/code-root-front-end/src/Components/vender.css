@@ -1,0 +1,34 @@
+.shopDetails{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.shopInput{
+    width: 40%;
+    height:25px;
+    /* border-radius: 5px; */
+    margin: 10px 10px;
+    border: none;
+    border-bottom:1px solid black;
+    outline: none;
+}
+.shopSubmit{
+    width: 20%;
+    background-color: rgb(2,136,209);
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+}
+.vanderSubmit{
+    width: 30%;
+    background-color: rgb(2,136,209);
+    padding: 5px 10px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 30px;
+}

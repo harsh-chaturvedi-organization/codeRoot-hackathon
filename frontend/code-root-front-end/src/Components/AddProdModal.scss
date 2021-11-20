@@ -10,9 +10,20 @@
     position: absolute;
     left: 20%;
     top: 20vh;
+    background-color: white;
     box-shadow: 3px 1px 8px 11px rgba(0,0,0,0.24);
     -webkit-box-shadow: 3px 1px 8px 11px rgba(0,0,0,0.24);
     -moz-box-shadow: 3px 1px 8px 11px rgba(0,0,0,0.24);
+}
+._wrapper{
+    height: 100vh;
+    background-color: white;
+    border: 1px solid black;
+    width: 100%;
+    position: absolute;
+    overflow-y: none;
+    left: 0;
+    top: 0;
 }
 
 ._modalHeader{
