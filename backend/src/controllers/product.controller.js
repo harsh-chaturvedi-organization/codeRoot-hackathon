@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = multer();
 const express = require("express")
 const router = express.Router()
-const uploadDrive = require("../middlewares/uploadDrive") 
+// const uploadDrive = require("../middlewares/uploadDrive") 
 const fs = require("fs");
 const uploadFile = require('../middlewares/uploadfile')
 
@@ -21,12 +21,12 @@ const Vendor = require("../models/vendor.model")
 router.post("/create",uploadFile.single("file"), async function (req, res) {
     console.log(req.file)
     try {
-        let uploadedFile = await uploadDrive(req.file.filename)
+        // let uploadedFile = await uploadDrive(req.file.filename)
         const product = await Product.create({
             name: req.body.productName,
             price: req.body.price,
             quantity: req.body.quantity,
-            image: uploadedFile
+            image: req.file.filename
 
         });
         let vendor = await Vendor.updateOne({ email: req.body.email }, { $push: { Products: product._id } })

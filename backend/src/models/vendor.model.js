@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true },
     googleId: { type: String, required: true },
     name: { type: String, required: true },
-    location: [{ type: String, required: false }],
+    address: {type:String,required:false},
+    location: [{ type: Number, required: false }],
     Products: [{ type: String, required: false }]
 
 }, {

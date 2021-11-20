@@ -4,7 +4,7 @@ const multer = require("multer");
 // cb is callback
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "../uploads"))
+        cb(null, path.join(__dirname, "../../../frontend/code-root-front-end/public/uploads"))
     },
     filename: function (req, file, cb) {
         const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1e9)

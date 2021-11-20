@@ -22,7 +22,7 @@ const center = {
 };
 
 // --------------------------------
-export default function Vendor() {
+export default function Vendor({email}) {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -31,8 +31,8 @@ export default function Vendor() {
   const [marker, setMarkers] = React.useState(center);
 
 
-  const [shop, setShop] = useState("");
-  const [addresss, setadd] = useState("")
+  // const [shop, setShop] = useState("");
+  const [address, setadd] = useState("")
 
   const onMapClick = React.useCallback((e) => {
     setMarkers(
@@ -51,12 +51,13 @@ export default function Vendor() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      shop,
-      addresss,
-        marker,
-        time: new Date()
+      lat:marker.lat,
+      long:marker.lng,
+      address,
+      email:email,
+      time: new Date()
     }
-    axios.post("http://localhost:3000/users",data)
+    axios.patch(`http://localhost:3002/vendor/updateLocation`,data)
     .then(resp=>console.log("success"))
   }
 
@@ -86,7 +87,6 @@ export default function Vendor() {
       <div>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="shopDetails">
-            <input className="shopInput" onChange={e => setShop(e.target.value)} type="text" placeholder="shop name" />
             <textarea className="shopInput" onChange={e => setadd(e.target.value)} id="w3review" name="" rows="2" cols="20">
               enter shop address
             </textarea>

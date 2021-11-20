@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import axios from "axios";
 import TextField from '@mui/material/TextField';
 import {Link} from "react-router-dom"
+import {useContext} from "react"
+import {Context} from "./context/ContextProvider"
 
 
 function AddProdModal({setAddProduct,addProdut,email}) {
@@ -12,6 +14,7 @@ function AddProdModal({setAddProduct,addProdut,email}) {
     const [quantity,setQuantity] = useState("");
     const [price,setPrice] = useState("");
     const [file, setFile] = useState("");
+    const {productData,setProductData,changingData} = useContext(Context);
 
     
     const handleSubmit= async ()  =>{
@@ -27,7 +30,8 @@ function AddProdModal({setAddProduct,addProdut,email}) {
         data.append("email",email)
         
         await axios.post("http://localhost:3002/product/create", data)
-          .then(res => console.log(res.data))
+          .then(res => changingData(res.data))
+            
           .catch(err => console.log(err));
         // console.log(data)    
         setAddProduct(false);

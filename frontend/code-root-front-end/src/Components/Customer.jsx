@@ -1,5 +1,6 @@
-import React from "react";
-import axios from "axios"
+import React,{useState} from "react";
+import axios from "axios";
+
 import {
     GoogleMap,
     useLoadScript,
@@ -30,6 +31,7 @@ export const Customer = () => {
     const [markers, setMarkers] = React.useState([]);
     const [selected, setSelected] = React.useState(null);
     const [user,setUser] = React.useState(center)
+    const [venderLocation,setVenderLocation] = useState([])
 
     const onMapClick = React.useCallback((e) => {
         setUser(
@@ -42,9 +44,11 @@ export const Customer = () => {
     })
     
     const getVCendoras = () => {
-        axios.get("http://localhost:3000/users")
-        .then(resp=>setMarkers(resp.data))
-    }
+        axios.get("http://localhost:3002/user/nearByVenders")
+        .then(resp=>setVenderLocation(resp.data))
+        // .then(resp=>console.log(resp.data))
+
+      }
     
       if (loadError) return "Error";
       if (!isLoaded) return "Loading...";
@@ -67,12 +71,12 @@ export const Customer = () => {
             position={{ lat: user.lat, lng: user.lng }}
                     />
                     
-        {markers.map((marker) => (
+        {venderLocation.map((vender) => (
           <Marker
-            key={`${marker.marker.lat}-${marker.marker.lng}`}
-            position={{ lat: marker.marker.lat, lng: marker.marker.lng }}
+          key={`${+(vender.location.lat)}-${+(vender.location.long)}`}
+            position={{ lat: vender.location.lat, lng: vender.location.long }}
             onClick={() => {
-              setSelected(marker);
+              setSelected(vender);
             }}
             icon={{
               url: `/bear.svg`,
@@ -85,7 +89,7 @@ export const Customer = () => {
 
         {selected ? (
           <InfoWindow
-            position={{ lat: selected.marker.lat, lng: selected.marker.lng }}
+            position={{ lat: +selected.location.lat, lng: +selected.location.lng }}
             onCloseClick={() => {
               setSelected(null);
             }}
@@ -97,7 +101,7 @@ export const Customer = () => {
                 </span>{" "}
               </h2>
                                 <div>
-                                    <p>{ selected.shop}</p>
+                                    <p>{ selected.name}</p>
                                     <p>{ selected.addresss}</p>
                </div>
             </div>

@@ -6,7 +6,7 @@ function ContextProvider({children}){
     const [productData,setProductData] = useState([])
 
     function changingData(data){
-        setProductData(data)
+        setProductData([...productData,...data])
     }
 
     return(

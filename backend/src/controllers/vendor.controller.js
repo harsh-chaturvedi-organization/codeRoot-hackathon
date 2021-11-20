@@ -34,7 +34,8 @@ router.post("/login", async (req, res) => {
 router.patch("/updateLocation", async (req, res) => {
     try {
         const vendor = await Vendor.findOneAndUpdate({ email: req.body.email }, {
-            location: [req.body.lat, req.body.long, req.body.time]
+            location: [req.body.lat, req.body.long],
+            address : req.body.address
         }, { "new": true })
         res.status(201).send(vendor)
     } catch (err) {
