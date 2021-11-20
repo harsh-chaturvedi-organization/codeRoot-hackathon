@@ -32,7 +32,9 @@
   text-align: center;
 }
 .venderPhoto > img {
-  width: 80%;
+  width: 50%;
+  border-radius: 30px;
+  margin-top: 30px;
 }
 .venderPhoto {
   background-color: rgb(250, 251, 255);

@@ -5,25 +5,21 @@ import {Route,Routes} from "react-router-dom"
 import VenderProfile from "./Components/VenderProfile";
 import UserHome from "./Components/UserHome";
 import {Nav} from "./Components/Nav"
-function App() {
+import { Navbar } from "./Components/Navbar";
+import Vendor from "./Components/vendor";
+import { Customer } from "./Components/Customer";
+function App() { 
   return (
     <div>
-<<<<<<< HEAD
-      {/* <Routes>
+     <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/login" element={<UserPage/>} />
-      </Routes> */}
-      <VenderProfile/>
-
-=======
-     {/* <Routes>
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/login" element={<UserPage/>} />
-     </Routes>*/}
+        <Route path="/loginVender" element={<UserPage/>} />
+        <Route path="/loginUser" element={<UserHome/>} />
+     </Routes>
       {/* <VenderProfile/> */}
-     <Nav/>
-     <UserHome/>
->>>>>>> 9db3bfc9be9b82f4189f3347a2e3e6fe43ab6ff1
+     {/* <Nav/>
+     <UserHome/> */}
+     {/* <Vendor/> */}
     </div>
   );
 }

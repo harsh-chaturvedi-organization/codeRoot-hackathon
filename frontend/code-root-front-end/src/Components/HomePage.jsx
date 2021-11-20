@@ -4,12 +4,12 @@ function HomePage(){
 
     return (
         <div className="homePageMaindiv">
-            <Link className="userAndVender" to="/login">
+            <Link className="userAndVender" to="/loginUser">
                 <div >
                     Procced To USER
                 </div>
             </Link>
-            <Link className="userAndVender" to="/login">
+            <Link className="userAndVender" to="/loginVender">
                 <div>
                     Procced To VENDER
                 </div>

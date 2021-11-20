@@ -1,0 +1,32 @@
+.googleSampleDesine{
+    width: 100%;
+    margin: auto;
+    /* border: 1px solid black; */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.googelLogo{
+    width: 20%;
+    /* margin: auto; */
+    margin-bottom: 0%;
+    height: 200px;
+}
+
+.googleSampleDesine>h1{
+    font-size: 36px;
+    margin-top: 0%;
+    color: rgb(165,165,165);
+    font-weight: 100;
+}
+.googleAvtar{
+    width: 8%;
+}
+.signInWithGoogle{
+    /* border: 1px solid black; */
+    width: 12%;
+    margin: auto;
+    margin-top: 20px;
+}

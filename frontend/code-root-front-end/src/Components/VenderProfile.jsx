@@ -1,5 +1,5 @@
 import "./VenderProfile.css";
-
+import Vendor from "./vendor";
 
 const venderItems = [
     {
@@ -27,7 +27,7 @@ const venderItems = [
 const removeItem=()=>{
     console.log("removeitem")
 }
-function VenderProfile({img}){
+function VenderProfile({img,name}){
 
     return(<div className="profile">
         <div className="heading">Your Posted Products</div>
@@ -46,8 +46,9 @@ function VenderProfile({img}){
             </div>
             <div className="venderPhoto">
                 <img src={img} alt="avtar" />
-                <h3 className="vendorName">Ram singh</h3>
+                <h3 className="vendorName">{name}</h3>
                 <button className="postprodBut">Post Another Product</button>
+                <Vendor/>
             </div>
         </div>
         </div>

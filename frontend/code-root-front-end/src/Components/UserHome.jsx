@@ -1,5 +1,5 @@
 import "./UserHome.css";
-
+import { Nav } from "./Nav";
 
 const venderItems = [
     {
@@ -49,7 +49,10 @@ const removeItem=()=>{
 }
 function UserHome({img}){
 
-    return(<div className="UserHome">
+    return(
+        <>
+        <Nav/>
+    <div className="UserHome">
         <div className="heading11">Available Products</div>
         <div className="prodGrid">
                 {venderItems.map((e)=> 
@@ -65,6 +68,7 @@ function UserHome({img}){
            
         </div>
         </div>
+        </>
     )
 }
 
