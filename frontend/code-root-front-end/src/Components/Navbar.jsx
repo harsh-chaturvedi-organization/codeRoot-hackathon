@@ -1,32 +1,34 @@
 import "./Navbar.css"
 import { useState } from "react";
+import axios from "axios";
 import GoogleLogin from "react-google-login";
 import VenderProfile from "./VenderProfile";
+import {useContext} from "react"
+import {Context} from "./context/ContextProvider"
+
+
 export const Navbar = () => {
     const [userData, setUser] = useState({});
     const [isLogin, setLogin] = useState(false);
-    const [visible, setVis] = useState(false)
+    const [visible, setVis] = useState(false);
+    // const [productData,setProductData] = useState([])
+    const {productData,setProductData,changingData} = useContext(Context);
 
     
     const responseGoogle = async (response) => {
         const data = response.profileObj;
-        console.log(data);
-        setUser({...data});
-        setLogin(true);
-        // axios({
-        //   method: "post",
-        //   mode: "no-cors",
-        //   url: "http://localhost:2345/user/login",
-        //   data: data,
-        // })
-        //   .then(function (response) {
-        //     setUser(data);
-        //     setLogin(true);
-        //     // console.log(user);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
+        // setUser({...data});
+        // setLogin(true);
+        
+        axios.post("http://localhost:3002/vendor/login",data)
+        .then((e)=>{
+            console.log(e.data);
+            setUser(e.data.vendor);
+            changingData(e.data.productDetails)
+            setLogin(true);
+        }).catch((err)=>{
+            console.log(err);
+        })
     };
     return (
         <div>
@@ -35,7 +37,7 @@ export const Navbar = () => {
                 <div>
             {/*<img onMouseOver={() => setVis(true)} src={userData.imageUrl} alt="name" />*/}
                     <div onMouseLeave={() => setVis(false)} style={{ display: visible ? "block" : "block" }}>
-                        <VenderProfile  img={userData.imageUrl} name={userData.name}/>
+                        <VenderProfile  img={userData.imageUrl} name={userData.name} email={userData.email}/>
                     </div>
                 </div>
             ) : (

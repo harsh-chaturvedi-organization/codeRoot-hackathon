@@ -3,49 +3,32 @@ import Vendor from "./vendor";
 import {Link} from "react-router-dom";
 import AddProdModal from "./AddProdModal";
 import { useState } from "react";
+import {useContext} from "react"
+import {Context} from "./context/ContextProvider";
 
-const venderItems = [
-    {
-        productName:"patato",
-        price:20,
-        image:"https://media.istockphoto.com/photos/three-potatoes-picture-id157430678?k=20&m=157430678&s=612x612&w=0&h=dfYLuPYwA50ojI90hZ4jCgKZd5TGnqf24UCVBszoZIA=",
-    },
-    {
-        productName:"patato",
-        price:20,
-        image:"https://media.istockphoto.com/photos/three-potatoes-picture-id157430678?k=20&m=157430678&s=612x612&w=0&h=dfYLuPYwA50ojI90hZ4jCgKZd5TGnqf24UCVBszoZIA=",
-    },
-    {
-        productName:"patato",
-        price:20,
-        image:"https://media.istockphoto.com/photos/three-potatoes-picture-id157430678?k=20&m=157430678&s=612x612&w=0&h=dfYLuPYwA50ojI90hZ4jCgKZd5TGnqf24UCVBszoZIA=",
-    },
-    {
-        productName:"patato",
-        price:20,
-        image:"https://media.istockphoto.com/photos/three-potatoes-picture-id157430678?k=20&m=157430678&s=612x612&w=0&h=dfYLuPYwA50ojI90hZ4jCgKZd5TGnqf24UCVBszoZIA=",
-    }
-]
 
 const removeItem=()=>{
     console.log("removeitem")
 }
-function VenderProfile({img,name}){
+
+
+function VenderProfile({img,name,email}){
     const [addProdut,setAddProduct] = useState(false);
+    const {productData,setProductData} = useContext(Context);
 
-
+    console.log(productData);
 
     return(<div className="profile">
         <div className="heading">Your Posted Products</div>
         <div className="venderProfileDiv">
             <div className="venderItems">
-                {venderItems.map((e)=> 
+                {productData.map((e)=> 
                 <div className="allDetailOfProduct">
-                    <img src={e.image} className="productImage" alt="productImage" />
+                    <img src={`../../../backend/src/uploads/1637413884102-183633390-homePage.PNG`} className="productImage" alt="productImage" />
                     <div>
-                        <h3 className="pName">{e.productName}</h3>
+                        <h3 className="pName">{e.name}</h3>
                         <h3 className="pPrice">Rs.{e.price}/kg</h3>
-                        <h3 className="pQuantity">30kg (available)</h3>
+                        <h3 className="pQuantity">{e.quantity} (available)</h3>
                     </div>
                     <div className="but"><button className="button12" onClick={removeItem}>Remove</button></div>
                 </div> )}
@@ -59,7 +42,7 @@ function VenderProfile({img,name}){
                 <Vendor/>
             </div>
         </div>
-        <AddProdModal addProdut={addProdut} setAddProduct={setAddProduct}/>
+        <AddProdModal email={email} addProdut={addProdut} setAddProduct={setAddProduct}/>
         </div>
     )
 }

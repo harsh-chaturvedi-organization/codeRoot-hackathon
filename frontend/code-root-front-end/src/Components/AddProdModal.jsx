@@ -1,32 +1,39 @@
 import React, { useState } from 'react';
 import "./AddProdModal.scss";
-
 import Button from '@mui/material/Button';
-
 import Box from '@mui/material/Box';
+import axios from "axios";
 import TextField from '@mui/material/TextField';
-
 import {Link} from "react-router-dom"
 
 
-
-
-
-function AddProdModal({setAddProduct,addProdut}) {
-    // const [showModal, setShowModal] =useState(false);
+function AddProdModal({setAddProduct,addProdut,email}) {
     const [pName,setPname] = useState("");
     const [quantity,setQuantity] = useState("");
     const [price,setPrice] = useState("");
-    // const [shopName,setShopName] = useState("");
-    const handleSubmit=()=>{
+    const [file, setFile] = useState("");
+
+    
+    const handleSubmit= async ()  =>{
         if(pName==="" || quantity==="" || price===""){
             alert("fill all field");
             return;
         }
-        const obj = {pName,quantity,price}
-        console.log(obj);
+        const data = new FormData();
+        data.append("file", file)
+        data.append("productName", pName)
+        data.append("quantity", quantity)
+        data.append("price", price)
+        data.append("email",email)
+        
+        await axios.post("http://localhost:3002/product/create", data)
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));
+        // console.log(data)    
         setAddProduct(false);
-    }
+      };
+    
+
     return (
         <div style={{display:addProdut?"block":"none"}} className="_wrapper">
         <div className="_prodModal">
@@ -54,19 +61,14 @@ function AddProdModal({setAddProduct,addProdut}) {
                     InputLabelProps={{
                         shrink: true,
                     }} />
-                {/* <TextField
-                    required="true"
-                    id="outlined-multiline-static"
-                    label="Location"
-                    multiline
-                    rows={4}
-                    defaultValue=""
-                /> */}
-                <input type="file" name="image"/>
-                {/* <TextField onChange={(e)=>setShopName(e.target.value)} value={shopName} id="outlined-basic" name="shop-name" label="shop name" variant="outlined" required="true"/> */}
-
-
-
+                        <input
+                            type="file"
+                            id="file"
+                            onChange={event => {
+                                const file = event.target.files[0];
+                                setFile(file);
+                            }}
+                        />
             </div>
             <div className="_modalBottom">
                 <p>All * fields are required</p>
@@ -83,6 +85,6 @@ function AddProdModal({setAddProduct,addProdut}) {
         </div>
         
     )
-}
+            }
 
-export default AddProdModal
+export default AddProdModal;
