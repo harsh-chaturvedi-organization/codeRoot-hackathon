@@ -1,109 +1,47 @@
 
-
-
 // const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 
 //models
 const Product = require("../models/product.model.js");
-
+const Vendor = require("../models/vendor.model")
 
 // <----------------------------------CRUD Operation for products----------------------------------->
 
 // post products to the database 
 
-router.post("/", async function (req, res) {
+router.post("/create", async function (req, res) {
     try {
-        const post = await Product.create(req.body);
-        return res.status(201).send(post);
+        const product = await Product.create(req.body);
+        let vendor = await Vendor.updateOne({ email: req.body.email }, { $push: { Products: product._id } })
+        return res.status(201).send(product);
+        // return res.status(201).send("success")
     }
     catch (err) {
-        return res.status(400).send(err.message);
+        return res.status(400).send(err.product);
     }
 })
 
-// get all products from database
-
-router.get("/", async function (req, res) {
-    try {
-        const get = await Product.find().lean().exec();
-        return res.status(200).send(get);
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
-
-// get products by Id
-
-router.get("/:id", async function (req, res) {
-    try {
-        const getById = await Product.findById().lean().exec();
-        return res.status(200).send(getById);
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
-
-// get products by domestic Id
-
-router.get("/query/:id", async function (req, res) {
-    try {
-        const getById = await Product.find({id: req.params.id}).lean().exec();
-        return res.status(200).send(getById);
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
-router.get("/page/:numb", async function (req, res) {
-    try {
-        const page=req.params.numb;
-        if(page<=4){
-            const getById = await Product.find().limit(page*6).lean().exec();
-           console.log(getById);
-          return res.status(200).send(getById);
-        }
-        else{
-            const getById = await Product.find().lean().exec();
-           console.log(getById);
-          return res.status(200).send(getById);
-        }
-        
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
-router.get("/pro/:name", async function (req, res) {
-    try {
-        const getById = await Product.find({type: req.params.name}).lean().exec();
-        return res.status(200).send(getById);
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
-
-// Update the products in the database
-
-router.patch("/:id", async function (req, res) {
-    try {
-        const update = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        return res.status(200).send(update);
-    }
-    catch (err) {
-        return res.status(400).send(err.message);
-    }
-})
 
 // delete the products from the database
 
-router.delete("/:id", async function(req, res) {
+router.delete("/:id", async function (req, res) {
     try {
         const remove = await Product.findByIdAndDelete(req.params.id);
+
+        let vendor = await Vendor.findOneAndUpdate({ email: req.body.email }, { $pull: { Products: `${req.params.id}` } }, { "new": true });
+
+        // console.log(req.params.id)
+        // let vendor = await Vendor.find({ email: req.body.email }).lean();
+
+        // for (let key in vendor[0].Products) {
+        //     console.log(key, vendor[0].Products[key])
+        //     if (vendor[0].Products[key] === `new ObjectId("${req.params.id}")`) {
+        //         console.log("got")
+        //     }
+        // }
+
         return res.status(204).send(remove);
     }
     catch (err) {

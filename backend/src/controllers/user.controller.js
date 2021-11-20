@@ -14,8 +14,6 @@ router.post("/login", async (req, res) => {
                 imageUrl: req.body.imageUrl,
                 googleId: req.body.googleId,
                 name: req.body.name,
-                type: req.body.type,
-                
             })
         }
         res.status(200).send(user);
