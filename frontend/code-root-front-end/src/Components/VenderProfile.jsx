@@ -24,24 +24,32 @@ const venderItems = [
     }
 ]
 
-function VenderProfile(){
+const removeItem=()=>{
+    console.log("removeitem")
+}
+function VenderProfile({img}){
 
-    return(
+    return(<div className="profile">
+        <div className="heading">Your Posted Products</div>
         <div className="venderProfileDiv">
             <div className="venderItems">
                 {venderItems.map((e)=> 
                 <div className="allDetailOfProduct">
                     <img src={e.image} className="productImage" alt="productImage" />
                     <div>
-                        <h3>Name : {e.productName}</h3>
-                        <h3>Price : {e.price}</h3>
+                        <h3 className="pName">{e.productName}</h3>
+                        <h3 className="pPrice">Rs.{e.price}/kg</h3>
+                        <h3 className="pQuantity">30kg (available)</h3>
                     </div>
+                    <div className="but"><button className="button12" onClick={removeItem}>Remove</button></div>
                 </div> )}
             </div>
             <div className="venderPhoto">
-                <img src="https://pickaface.net/gallery/avatar/unr_sample_161118_2054_ynlrg.png" alt="avtar" />
-                <h3>Ram singh</h3>
+                <img src={img} alt="avtar" />
+                <h3 className="vendorName">Ram singh</h3>
+                <button className="postprodBut">Post Another Product</button>
             </div>
+        </div>
         </div>
     )
 }
