@@ -1,64 +1,73 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import {
-    GoogleMap,
-    useLoadScript,
-    Marker,
-    InfoWindow,
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
 } from "@react-google-maps/api";
 
 // import { formatRelative } from "date-fns";
 const mapContainerStyle = {
-    height: "400px",
-    width: "400px",
-  };
-  
-  const options = {
-    zoomControl: true,
-  };
-  const center = {
-    lat: 23.488745,
-    lng: 80.104507,
-  };
+  height: "400px",
+  width: "400px",
+};
+
+const options = {
+  zoomControl: true,
+};
+const center = {
+  lat: 23.488745,
+  lng: 80.104507,
+};
 
 export const Customer = () => {
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  });
 
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  const [markers, setMarkers] = React.useState([]);
+  const [selected, setSelected] = React.useState(null);
+  const [user, setUser] = React.useState(center);
+  const [venderLocation, setVenderLocation] = useState([]);
+
+  const [showClicked, setShowClicked] = useState({})
+  const [showProducts, setShowProducts] = useState(false)
+
+  const onMapClick = React.useCallback((e) => {
+    setUser({
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng(),
     });
-    
-    const [markers, setMarkers] = React.useState([]);
-    const [selected, setSelected] = React.useState(null);
-    const [user,setUser] = React.useState(center)
-    const [venderLocation,setVenderLocation] = useState([])
+  });
 
-    const onMapClick = React.useCallback((e) => {
-        setUser(
-          {
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-          }
-        );
-    
-    })
-    
-    const getVCendoras = () => {
-        axios.get("http://localhost:3002/user/nearByVenders")
-        .then(resp=>setVenderLocation(resp.data))
-        // .then(resp=>console.log(resp.data))
+  const getVCendoras = () => {
+    axios.get("http://localhost:3002/user/nearByVenders").then((resp) => {
+      console.log(typeof resp.data);
+      resp.data.map((e) => console.log(typeof e.location[0]));
+      setVenderLocation(resp.data);
+    });
+    // .then(resp=>console.log(resp.data))
+  };
 
-      }
-    
-      if (loadError) return "Error";
-      if (!isLoaded) return "Loading...";
+  if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
 
+  // give vendor info
+  function getVendorInfo(email) {
+    axios.get(`http://localhost:3002/vendor/information/${email}`)
+      .then(resp => {
+        setShowClicked(resp.data)
+        setShowProducts(true)
+      })
+  }
 
-    return (
-        <div>
-            <div>
-                <p>choose your  location on map</p>
-                <GoogleMap
+  return (
+    <div>
+      <div>
+        <p>choose your location on map</p>
+        <GoogleMap
           id="map"
           mapContainerStyle={mapContainerStyle}
           zoom={10}
@@ -69,51 +78,81 @@ export const Customer = () => {
           <Marker
             key={`${user.lat}-${user.lng}`}
             position={{ lat: user.lat, lng: user.lng }}
-                    />
-                    
-        {venderLocation.map((vender) => (
-          <Marker
-          key={`${+(vender.location.lat)}-${+(vender.location.long)}`}
-            position={{ lat: vender.location.lat, lng: vender.location.long }}
-            onClick={() => {
-              setSelected(vender);
-            }}
-            icon={{
-              url: `/bear.svg`,
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-              scaledSize: new window.google.maps.Size(15, 15),
-            }}
           />
-        ))}
 
-        {selected ? (
-          <InfoWindow
-            position={{ lat: +selected.location.lat, lng: +selected.location.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <h2>
-                <span role="img" aria-label="bear">
-                  🐻
-                </span>{" "}
-              </h2>
-                                <div>
-                                    <p>{ selected.name}</p>
-                                    <p>{ selected.addresss}</p>
-               </div>
-            </div>
-          </InfoWindow>
-        ) : null}
+          {venderLocation.map((vender) => (
+            <Marker
+              key={`${vender.location[0]}-${vender.location[1]}`}
+              position={{ lat: vender.location[0], lng: vender.location[1] }}
+              onClick={() => {
+                setSelected(vender);
+              }}
+              icon={{
+                url: `/76c4ecaf04185f2b3fc2e1047121eca1.svg`,
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(25, 25),
+              }}
+            />
+          ))}
 
-
+          {selected ? (
+            <InfoWindow
+              position={{
+                lat: selected.location[0],
+                lng: selected.location[1],
+              }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <div onClick={() => {
+                getVendorInfo(selected.email)
+              }}>
+                <h2>
+                  <img src="76c4ecaf04185f2b3fc2e1047121eca1.svg" alt="" style={{ height: "20px", width: "20px", position: "relative" }} />
+                </h2>
+                <div>
+                  <p>Name: {selected.name}</p>
+                  <p>Adress: {selected.address}</p>
+                </div>
+              </div>
+            </InfoWindow>
+          ) : null}
         </GoogleMap>
+      </div>
+      <div>
+        <button className="vanderSubmit" onClick={getVCendoras}>
+          findVendors
+        </button>
+      </div>
+
+      {/* products details */}
+      <div>
+        <button onClick={() => setShowProducts(!showProducts)}>{showProducts ? "Hide" : "Show"}</button>
+
+        {showProducts ?
+          (<div style={{ display: showProducts ? "block" : "none", border: "1px solid" }}>
+            <div>
+              <img src={showClicked.vendor.imageUrl} style={{ height: "50px", width: "50px" }} alt="user" />
+              <h3>SHOP : {showClicked.vendor.name}</h3>
+              <h3>Address : {showClicked.vendor.address}</h3>
             </div>
             <div>
-                <button className="vanderSubmit" onClick={getVCendoras}>findVendors</button>
+              {
+                showClicked.productDetails.map(item => (
+                  <div style={{ border: "1px solid", margin: "10px" }}>
+                    <img src={`uploads/${item.image}`} style={{ height: "50px", width: "50px" }} alt="" />
+                    <p>{item.name}</p>
+                    <p>{item.price}</p>
+                    <p>{item.quantity}</p>
+                  </div>
+                ))
+              }
             </div>
-            </div>
-    )
-}
+          </div>):""}
+
+      </div>
+    </div>
+  );
+};

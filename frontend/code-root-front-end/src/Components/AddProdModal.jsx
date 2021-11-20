@@ -17,7 +17,7 @@ function AddProdModal({setAddProduct,addProdut,email}) {
     const {productData,setProductData,changingData} = useContext(Context);
 
     
-    const handleSubmit= async ()  =>{
+    const handleSubmit = async (e) => {
         if(pName==="" || quantity==="" || price===""){
             alert("fill all field");
             return;
@@ -30,7 +30,14 @@ function AddProdModal({setAddProduct,addProdut,email}) {
         data.append("email",email)
         
         await axios.post("http://localhost:3002/product/create", data)
-          .then(res => changingData(res.data))
+        //   .then(res => changingData(res.data))
+            .then(res => {
+                axios.get(`http://localhost:3002/vendor/information/${email}`)
+                .then(resp => {
+                    console.log(resp.data.productDetails)
+                    setProductData(resp.data.productDetails)
+                })
+        })
             
           .catch(err => console.log(err));
         // console.log(data)    
@@ -76,13 +83,11 @@ function AddProdModal({setAddProduct,addProdut,email}) {
             </div>
             <div className="_modalBottom">
                 <p>All * fields are required</p>
-                <Link to="/loginVender">
                     <Button variant="contained" color="success" onClick={()=>{
                     handleSubmit(); 
                 }}>
                   ADD
                </Button>
-               </Link>
             </div>
            
         </div>

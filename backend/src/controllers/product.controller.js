@@ -18,7 +18,7 @@ const Vendor = require("../models/vendor.model")
 // post products to the database 
 
 
-router.post("/create",uploadFile.single("file"), async function (req, res) {
+router.post("/create", uploadFile.single("file"), async function (req, res) {
     console.log(req.file)
     try {
         // let uploadedFile = await uploadDrive(req.file.filename)
@@ -48,17 +48,15 @@ router.delete("/:id", async function (req, res) {
 
         let vendor = await Vendor.findOneAndUpdate({ email: req.body.email }, { $pull: { Products: `${req.params.id}` } }, { "new": true });
 
-        // console.log(req.params.id)
-        // let vendor = await Vendor.find({ email: req.body.email }).lean();
-
-        // for (let key in vendor[0].Products) {
-        //     console.log(key, vendor[0].Products[key])
-        //     if (vendor[0].Products[key] === `new ObjectId("${req.params.id}")`) {
-        //         console.log("got")
-        //     }
-        // }
-
         return res.status(204).send(remove);
+
+
+        // console.log(req.body.email)
+        // console.log(req.params.id)
+        // return res.status(201)
+
+
+
     }
     catch (err) {
         return res.status(400).send(err.message);

@@ -31,17 +31,34 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.patch("/updateLocation", async (req, res) => {
+router.put("/updateLocation", async (req, res) => {
     try {
         const vendor = await Vendor.findOneAndUpdate({ email: req.body.email }, {
             location: [req.body.lat, req.body.long],
-            address : req.body.address
+            address: req.body.address
         }, { "new": true })
+        // res.header("Access-Control-Allow-Methods", "PATCH").status(201).send(vendor);
         res.status(201).send(vendor)
     } catch (err) {
         res.status(400).send(err.mesage)
     }
 
+})
+
+router.get("/information/:email", async (req, res) => {
+    try {
+        const vendor = await Vendor.findOne({ email: req.params.email }).lean().exec();
+        let productDetails = []
+        if (vendor.Products.length !== 0) {
+            for (let i = 0; i < vendor.Products.length; i++) {
+                let item = await Product.findOne({ _id: vendor.Products[i] }).lean().exec()
+                productDetails.push(item)
+            }
+        }
+        res.status(200).send({ vendor, productDetails });
+    } catch (err) {
+        res.status(400).send(err.mesage)
+    }
 })
 
 module.exports = router

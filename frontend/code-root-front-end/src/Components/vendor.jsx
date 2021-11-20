@@ -57,7 +57,7 @@ export default function Vendor({email}) {
       email:email,
       time: new Date()
     }
-    axios.patch(`http://localhost:3002/vendor/updateLocation`,data)
+    axios.put(`http://localhost:3002/vendor/updateLocation`,data)
     .then(resp=>console.log("success"))
   }
 
