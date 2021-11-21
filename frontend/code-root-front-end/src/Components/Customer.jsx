@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import "./Customer.css";
+import { Button } from "@mui/material";
 import {
   GoogleMap,
   useLoadScript,
@@ -64,6 +65,7 @@ export const Customer = () => {
   }
 
   return (
+    <>
     <div>
       <div>
         <p>choose your location on map</p>
@@ -126,26 +128,31 @@ export const Customer = () => {
           findVendors
         </button>
       </div>
-
-      {/* products details */}
-      <div>
-        <button onClick={() => setShowProducts(!showProducts)}>{showProducts ? "Hide" : "Show"}</button>
+    </div>
+     {/* products details */}
+    <div className="locationMainDiv">
+        {/* <button onClick={() => setShowProducts(!showProducts)}>{showProducts ? "Hide" : "Show"}</button> */}
+        <Button style={{margin:"10px"}} onClick={() => setShowProducts(!showProducts)} variant="contained">{showProducts ? "Hide Details" : "Show Details"}</Button>
 
         {showProducts ?
-          (<div style={{ display: showProducts ? "block" : "none", border: "1px solid" }}>
-            <div>
-              <img src={showClicked.vendor.imageUrl} style={{ height: "50px", width: "50px" }} alt="user" />
-              <h3>SHOP : {showClicked.vendor.name}</h3>
-              <h3>Address : {showClicked.vendor.address}</h3>
+          (<div style={{ display: showProducts ? "block" : "none",marginBottom:"100px",boxShadow:"5px 5px 15px gray" }}>
+            <div className="venderLocationInfo">
+              <img src={showClicked.vendor.imageUrl} style={{ height: "100px", width: "100px",margin:"10px" }} alt="user" />
+              <div>
+                <h3>VENDOR : {showClicked.vendor.name}</h3>
+                <h3>Address : {showClicked.vendor.address}</h3>
+              </div>
             </div>
-            <div>
+            <div className="productDetailsOfLocatedVender">
               {
                 showClicked.productDetails.map(item => (
-                  <div style={{ border: "1px solid", margin: "10px" }}>
-                    <img src={`uploads/${item.image}`} style={{ height: "50px", width: "50px" }} alt="" />
-                    <p>{item.name}</p>
-                    <p>{item.price}</p>
-                    <p>{item.quantity}</p>
+                  <div className="itemDiv">
+                    <img src={`uploads/${item.image}`} className="productImage" alt="product Image" />
+                    <div>
+                      <p>Product Name : {item.name}</p>
+                      <p>Price : {item.price}</p>
+                      <p>quantity : {item.quantity}</p>
+                    </div>
                   </div>
                 ))
               }
@@ -153,6 +160,7 @@ export const Customer = () => {
           </div>):""}
 
       </div>
-    </div>
+    </>
+
   );
 };
