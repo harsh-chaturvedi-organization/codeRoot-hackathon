@@ -39,5 +39,6 @@
     transform: scale(5);
     z-index:2;
     transition-duration: 1s;
+    object-fit: cover;
     
 }

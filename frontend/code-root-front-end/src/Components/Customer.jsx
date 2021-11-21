@@ -12,7 +12,7 @@ import {
 // import { formatRelative } from "date-fns";
 const mapContainerStyle = {
   height: "400px",
-  width: "400px",
+  width: "600px",
 };
 
 const options = {
@@ -67,7 +67,7 @@ export const Customer = () => {
   return (
     <>
     <div>
-      <div>
+      <div style={{marginLeft:"-150px"}}>
         <p>choose your location on map</p>
         <GoogleMap
           id="map"
@@ -147,7 +147,7 @@ export const Customer = () => {
               {
                 showClicked.productDetails.map(item => (
                   <div className="itemDiv">
-                    <img src={`uploads/${item.image}`} className="productImage" alt="product Image" />
+                    <img src={`uploads/${item.image}`} className="productImage" alt="productImage"/>
                     <div>
                       <p>Product Name : {item.name}</p>
                       <p>Price : {item.price}</p>
