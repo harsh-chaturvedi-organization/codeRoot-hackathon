@@ -25,7 +25,7 @@ const center = {
 
 export const Customer = () => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: "AIzaSyC3xVwRAUfOTYGJ9JsB3yJLxzwHZatEVR8",
   });
 
   const [markers, setMarkers] = React.useState([]);
