@@ -1,6 +1,11 @@
 import "./HomePage.css";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import React from "react"
 function HomePage(){
+
+    React.useEffect(() => {
+        localStorage.removeItem("email")
+},[])
 
     return (
         <div className="homePageMaindiv">

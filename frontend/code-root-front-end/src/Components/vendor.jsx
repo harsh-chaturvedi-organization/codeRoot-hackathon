@@ -58,7 +58,10 @@ export default function Vendor({email}) {
       time: new Date()
     }
     axios.put(`http://localhost:3002/vendor/updateLocation`,data)
-    .then(resp=>console.log("success"))
+      .then(resp => {
+        console.log("success")
+        alert("location updated successfully")
+      })
   }
 
 
@@ -66,7 +69,7 @@ export default function Vendor({email}) {
     <div style={{ display: "grid", gridTemplateColumns: "100%" }}>
 
       <div >
-        <p>choose shop location on map</p>
+        <h3>choose shop location on map</h3>
         <div style={{width:"40%"}}>
         <GoogleMap
           id="map"

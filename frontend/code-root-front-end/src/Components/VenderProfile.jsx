@@ -1,6 +1,6 @@
 import "./VenderProfile.css";
 import Vendor from "./vendor";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import AddProdModal from "./AddProdModal";
 import { useState } from "react";
 import { useContext } from "react";
@@ -62,14 +62,24 @@ function VenderProfile({ img, name, email }) {
                 <div className="venderPhoto">
                     <img src={img} alt="avtar" />
                     <h3 className="vendorName">{name}</h3>
-                    <button
-                        className="postprodBut"
-                        onClick={() => {
-                            setAddProduct(true);
-                        }}
-                    >
-                        Post Another Product
-                    </button>
+                    <div>
+                        <button
+                            className="postprodBut"
+                            onClick={() => {
+                                setAddProduct(true);
+                            }}
+                        >
+                            Post Another Product
+                        </button>
+                        <Link to="/" style={{ textDecoration: "inherit", color: "white" }}>
+                            <div
+                                className="postprodBut"
+                                style={{ width: "100px", margin: "auto", marginTop: "20px" }}
+                            >
+                                Logout
+                            </div>
+                        </Link>
+                    </div>
                     <Vendor email={email} />
                 </div>
             </div>
