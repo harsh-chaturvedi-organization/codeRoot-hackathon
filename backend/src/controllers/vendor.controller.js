@@ -5,6 +5,7 @@ const Vendor = require("../models/vendor.model")
 const Product = require("../models/product.model.js")
 
 router.post("/login", async (req, res) => {
+    // console.log(req.body)
     try {
         let vendor = await Vendor.findOne({ email: req.body.email })
         if (!vendor) {

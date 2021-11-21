@@ -26,7 +26,7 @@ function AddProdModal({ setAddProduct, addProdut, email }) {
         data.append("quantity", quantity);
         data.append("price", price);
         data.append("email", email);
-
+  
         await axios
             .post("http://localhost:3002/product/create", data)
             //   .then(res => changingData(res.data))

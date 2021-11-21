@@ -19,7 +19,7 @@ const Vendor = require("../models/vendor.model")
 
 
 router.post("/create", uploadFile.single("file"), async function (req, res) {
-    console.log(req.file)
+    // console.log(req.file)
     try {
         // let uploadedFile = await uploadDrive(req.file.filename)
         const product = await Product.create({
